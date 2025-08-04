@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css"; // importa lo stile di react-calendar
 
 const events = [
   {
@@ -108,32 +106,20 @@ function JoinEventForm({ event, onClose }) {
 }
 
 function ViewEvents({ events }) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const filteredEvents = events.filter(e =>
-    e.start.toDateString() === selectedDate.toDateString() && !e.isLive
-  );
-
   return (
     <div className="mt-4">
-      <h3 className="text-xl font-bold mb-2">Calendario Eventi</h3>
-      <Calendar onChange={setSelectedDate} value={selectedDate} />
-      <div className="mt-4">
-        <h4 className="font-semibold">
-          Eventi il {selectedDate.toLocaleDateString()}
-        </h4>
-        {filteredEvents.length === 0 ? (
-          <p className="text-gray-400">Nessun evento in questa data.</p>
-        ) : (
-          <ul className="list-disc ml-5 mt-2">
-            {filteredEvents.map(e => (
-              <li key={e.id}>
-                {e.name} - {e.start.toLocaleTimeString()}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <h3 className="text-xl font-bold mb-2">Eventi Futuri</h3>
+      {events.filter(e => !e.isLive).length === 0 ? (
+        <p className="text-gray-400">Nessun evento futuro disponibile.</p>
+      ) : (
+        <ul className="list-disc ml-5 mt-2">
+          {events.filter(e => !e.isLive).map(e => (
+            <li key={e.id}>
+              {e.name} - {e.start.toLocaleDateString()} alle {e.start.toLocaleTimeString()}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
