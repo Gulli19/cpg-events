@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css"; // importa lo stile di react-calendar
+import "react-calendar/dist/Calendar.css"; // importa lo stile di react-calendar
 
 const events = [
   {
